@@ -1,15 +1,19 @@
-dotnet-core-rest-api
+
+# dotnet-core-rest-api
 
 
-#executar container docker
+### Executar via container docker
 
-dotnet restore
-dotnet publish -c Release -o out
-docker build -t docker-rest-api .
-docker run -p 5001:5000 -it --rm docker-rest-api
+```sh
+$ dotnet restore
+$ dotnet publish -c Release -o out
+$ docker build -t docker-rest-api .
+$ docker run -p 5001:5000 -it --rm docker-rest-api
+```
 
-
-#url test
+### Url teste
 http://localhost:5001/rest-api/customer
 
-# VERBS: CREATE, GET, GET/ID, PUT, DELETE
+### Verbos
+
+CREATE, GET, GET/ID, PUT, DELETE
