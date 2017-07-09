@@ -8,30 +8,30 @@ using rest_api.Models;
 namespace rest_api.Controllers
 {
     [Route("rest-api/[controller]")]
-    public class ClientController : Controller
+    public class CustomerController : Controller
     {
-        private readonly ClientContext _context;
+        private readonly CustomerContext _context;
         
         // Constructor dependency injection data context
-        public ClientController(ClientContext context)
+        public CustomerController(CustomerContext context)
         {
             _context = context;
         } 
 
-        // GET rest-api/client
+        // GET rest-api/customer
         // return all itens 
         [HttpGet]
-        public IEnumerable<Client> GetAll()
+        public IEnumerable<Customer> GetAll()
         {            
-            return _context.ClientBase.ToList();
+            return _context.CustomerBase.ToList();
         }
 
-        // GET rest-api/client
+        // GET rest-api/customer
         // return item by ID
-        [HttpGet("{id}", Name = "GetClient")]
+        [HttpGet("{id}", Name = "GetCustomer")]
         public IActionResult GetById(long id)
         {
-            var item = _context.ClientBase.FirstOrDefault(t => t.Id == id);
+            var item = _context.CustomerBase.FirstOrDefault(t => t.Id == id);
             if (item == null)
             {
                 return NotFound(); //404
@@ -39,58 +39,58 @@ namespace rest_api.Controllers
             return new ObjectResult(item);
         }
 
-        // POST rest-api/client json type
+        // POST rest-api/customer json type
         // create a new item and return the item with the new ID
         [HttpPost]
-        public IActionResult Create([FromBody] Client item)
+        public IActionResult Create([FromBody] Customer item)
         {
             if (item == null)
             {
                 return BadRequest(); //400
             }
 
-            _context.ClientBase.Add(item);
+            _context.CustomerBase.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetClient", new { id = item.Id }, item);
+            return CreatedAtRoute("GetCustomer", new { id = item.Id }, item);
         }
 
-        // POST rest-api/client json type and ID
+        // POST rest-api/customer json type and ID
         // update the item with body's content by id 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] Client item)
+        public IActionResult Update(long id, [FromBody] Customer item)
         {
             if (item == null || item.Id != id)
             {
                 return BadRequest(); //400
             }
 
-            var client = _context.ClientBase.FirstOrDefault(t => t.Id == id);
-            if (client == null)
+            var customer = _context.CustomerBase.FirstOrDefault(t => t.Id == id);
+            if (customer == null)
             {
                 return NotFound(); //404
             }
 
-            client.Address = item.Address;
-            client.Name = item.Name;
+            customer.Address = item.Address;
+            customer.Name = item.Name;
 
-            _context.ClientBase.Update(client);
+            _context.CustomerBase.Update(customer);
             _context.SaveChanges();
             return new NoContentResult();
         }
 
-        // DELETE rest-api/client
+        // DELETE rest-api/customer
         // delete item by id
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var client = _context.ClientBase.First(t => t.Id == id);
-            if (client == null)
+            var customer = _context.CustomerBase.First(t => t.Id == id);
+            if (customer == null)
             {
                 return NotFound(); //404
             }
 
-            _context.ClientBase.Remove(client);
+            _context.CustomerBase.Remove(customer);
             _context.SaveChanges();
             return new NoContentResult(); //204
         }

@@ -30,7 +30,7 @@ namespace rest_api
         public void ConfigureServices(IServiceCollection services)
         {
             //Add data base context
-            services.AddDbContext<ClientContext>(opt => opt.UseInMemoryDatabase());
+            services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase());
             
             // Add framework services.
             services.AddMvc();
